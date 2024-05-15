@@ -1,0 +1,22 @@
+.containerForm {
+  border: 3px solid gray;
+  border-radius: 4px;
+  padding: 20px 10px;
+  margin-bottom: 20px;
+  width: 335px;
+}
+.labelForm {
+  display: block;
+}
+.btnForm {
+  display: flex;
+  margin: 0 auto;
+  border: 1px solid gray;
+}
+.inputForm {
+  width: 310px;
+  margin-bottom: 20px;
+}
+.error {
+  color: red;
+}
