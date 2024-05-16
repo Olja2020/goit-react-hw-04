@@ -77,7 +77,7 @@ export default function App() {
     <div>
       <SearchBar onSearch={handleSearch} />
       <ImageGallery items={images} />
-      {/* <ImageGallery items={images} /> */}
+
       {isLoading && <Loader />}
       {/* {showBtn && <LoadMoreBtn/>} */}
       {images.length > 0 && !isLoading && (

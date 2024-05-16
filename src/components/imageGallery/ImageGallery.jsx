@@ -6,7 +6,7 @@ export default function ImageGallery({ items }) {
     <ul className={css.list}>
       {items.map((item) => (
         <li className={css.item} key={item.id}>
-          <ImageCard />
+          <ImageCard data={item} />
         </li>
       ))}
     </ul>
