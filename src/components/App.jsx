@@ -54,7 +54,7 @@ export default function App() {
         setIsLoading(true);
         setIsError(false);
         const data = await getImages(searchQuery, page);
-        setImages(data);
+        setImages((prevState) => [...prevState, ...data]);
       } catch (errer) {
         setIsError(true);
       } finally {
