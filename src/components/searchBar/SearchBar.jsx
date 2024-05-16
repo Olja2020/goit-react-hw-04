@@ -1,6 +1,7 @@
 //import css from "./SearchBar.module.css";
 import toast, { Toaster } from "react-hot-toast";
 import { Formik, Form, Field } from "formik";
+//import { element } from "prop-types";
 const notify = () => toast("Необхідно ввести текст для пошуку зображень");
 
 export default function SearchBar({ onSearch }) {
