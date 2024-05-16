@@ -10,7 +10,7 @@ import React from "react";
 //import ReactDOM from "react-dom";
 import Modal from "react-modal";
 //import axios from "axios";
-//import { useEffect } from "react";
+
 import { getImages } from "../../src/Api";
 const customStyles = {
   content: {
@@ -67,8 +67,11 @@ export default function App() {
   const handleSearch = async (topic) => {
     setSearchQuery(topic);
     setPage(1);
+    setImages([]);
   };
-  const handleLoadMore = async () => {};
+  const handleLoadMore = async () => {
+    setPage(page + 1);
+  };
 
   return (
     <div>
@@ -77,7 +80,9 @@ export default function App() {
       <ImageGallery items={images} />
       {isLoading && <Loader />}
 
-      <LoadMoreBtn onClick={handleLoadMore} />
+      {images.length > 0 && !isLoading && (
+        <LoadMoreBtn onClick={handleLoadMore} />
+      )}
       {isError && <ErrorMessage />}
       <ImageModal />
 
