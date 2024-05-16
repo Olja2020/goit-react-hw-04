@@ -1,4 +1,4 @@
-//import css from "./SearchBar.module.css";
+import css from "./SearchBar.module.css";
 import toast, { Toaster } from "react-hot-toast";
 import { Formik, Form, Field } from "formik";
 //import { element } from "prop-types";
@@ -13,15 +13,21 @@ export default function SearchBar({ onSearch }) {
         actions.resetForm();
       }}
     >
-      <Form>
+      <Form className={css.inputForm}>
         <Field
+          className={css.fieldForm}
           type="text"
           name="query"
           //autocomplete="off"
           //autofocus
           placeholder="Search images and photos"
         />
-        <button type="submit" onSubmit={onSearch} onClick={notify}>
+        <button
+          className={css.buttonBar}
+          type="submit"
+          onSubmit={onSearch}
+          onClick={notify}
+        >
           Search
         </button>
         <Toaster />

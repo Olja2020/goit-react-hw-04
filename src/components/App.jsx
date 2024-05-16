@@ -46,6 +46,7 @@ export default function App() {
     setIsOpen(false);
   }
   useEffect(() => {
+    console.log(searchQuery, page);
     if (searchQuery === "") {
       return;
     }
