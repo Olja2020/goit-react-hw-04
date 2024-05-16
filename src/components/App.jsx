@@ -37,8 +37,7 @@ export default function App() {
         setImages(fetchedImages);
       } catch (error) {
         setIsError(true);
-      }
-      finally {
+      } finally {
         setIsLoading(false);
       }
     }
@@ -96,7 +95,7 @@ export default function App() {
 
   return (
     <div>
-      <SearchBar />
+      <SearchBar onSearch={handleSearch} />
       {images.length > 0 && <ImageGallery items={images} />}
       {isLoading && <Loader />}
 
