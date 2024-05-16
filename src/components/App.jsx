@@ -46,7 +46,7 @@ export default function App() {
     setIsOpen(false);
   }
   useEffect(() => {
-    if (searchQuery.trim() === "") {
+    if (searchQuery === "") {
       return;
     }
     async function fetchImages() {
