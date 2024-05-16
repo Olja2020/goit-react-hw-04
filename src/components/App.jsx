@@ -29,7 +29,7 @@ export default function App() {
   const [isError, setIsError] = useState(false);
   const [page, setPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
-
+  //const [showBtn, setShowBtn] = useState(false);
   let subtitle;
   const [modalIsOpen, setIsOpen] = React.useState(false);
 
@@ -72,14 +72,14 @@ export default function App() {
   const handleLoadMore = async () => {
     setPage(page + 1);
   };
-
+  //setShowBtn(total_pages && total_pages !== page);
   return (
     <div>
       <SearchBar onSearch={handleSearch} />
-      {/* {images.length > 0 && <ImageGallery items={images} />} */}
-      <ImageGallery items={images} />
+      {images.length > 0 && <ImageGallery items={images} />}
+      {/* <ImageGallery items={images} /> */}
       {isLoading && <Loader />}
-
+      {/* {showBtn && <LoadMoreBtn/>} */}
       {images.length > 0 && !isLoading && (
         <LoadMoreBtn onClick={handleLoadMore} />
       )}
