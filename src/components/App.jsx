@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import LoadMoreBtn from "./loadMoreBtn/LoadMoreBtn";
 import Loader from "./loader/Loader";
 import ImageGallery from "./imageGallery/ImageGallery";
@@ -95,7 +95,7 @@ export default function App() {
   const handleSearch = async (topic) => {
     try {
       setIsLoading(true);
-      const fetchedImages = await getImages("react");
+      const fetchedImages = await getImages(topic);
       setIsLoading(false);
       setImages(fetchedImages);
     } catch (error) {
