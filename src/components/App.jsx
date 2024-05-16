@@ -28,21 +28,21 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
-  useEffect(() => {
-    async function fetchImages() {
-      try {
-        setIsLoading(true);
-        const fetchedImages = await getImages("react");
-        setIsLoading(false);
-        setImages(fetchedImages);
-      } catch (error) {
-        setIsError(true);
-      } finally {
-        setIsLoading(false);
-      }
-    }
-    fetchImages();
-  }, []);
+  // useEffect(() => {
+  //   async function fetchImages() {
+  //     try {
+  //       setIsLoading(true);
+  //       const fetchedImages = await getImages("react");
+  //       setIsLoading(false);
+  //       setImages(fetchedImages);
+  //     } catch (error) {
+  //       setIsError(true);
+  //     } finally {
+  //       setIsLoading(false);
+  //     }
+  //   }
+  //   fetchImages();
+  // }, []);
 
   let subtitle;
   const [modalIsOpen, setIsOpen] = React.useState(false);
@@ -92,7 +92,18 @@ export default function App() {
   // useEffect(() => {
   //   window.localStorage.setItem("saved-contacts", JSON.stringify(contacts));
   // }, [contacts]);
-
+  const handleSearch = async (topic) => {
+    try {
+      setIsLoading(true);
+      const fetchedImages = await getImages("react");
+      setIsLoading(false);
+      setImages(fetchedImages);
+    } catch (error) {
+      setIsError(true);
+    } finally {
+      setIsLoading(false);
+    }
+  };
   return (
     <div>
       <SearchBar onSearch={handleSearch} />
