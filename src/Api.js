@@ -13,5 +13,5 @@ export const getImages = async (topic, currentPage) => {
     }
   );
 
-  return response.data.hits;
+  return response.data.results;
 };
