@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LoadMoreBtn from "./loadMoreBtn/LoadMoreBtn";
 import Loader from "./loader/Loader";
 import ImageGallery from "./imageGallery/ImageGallery";
@@ -27,22 +27,8 @@ export default function App() {
   const [images, setImages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
-
-  // useEffect(() => {
-  //   async function fetchImages() {
-  //     try {
-  //       setIsLoading(true);
-  //       const fetchedImages = await getImages("react");
-  //       setIsLoading(false);
-  //       setImages(fetchedImages);
-  //     } catch (error) {
-  //       setIsError(true);
-  //     } finally {
-  //       setIsLoading(false);
-  //     }
-  //   }
-  //   fetchImages();
-  // }, []);
+  const [page, setPage] = useState(1);
+  const [searchQuery, setSearchQuery] = useState("");
 
   let subtitle;
   const [modalIsOpen, setIsOpen] = React.useState(false);
@@ -59,58 +45,39 @@ export default function App() {
   function closeModal() {
     setIsOpen(false);
   }
-  // const getContact = () => {
-  //   const savedObject = window.localStorage.getItem("saved-contacts");
-
-  //   return savedObject != null
-  //     ? JSON.parse(savedObject)
-  //     : [
-  //         { id: "id-1", name: "Rosie Simpson", number: "459-12-56" },
-  //         { id: "id-2", name: "Hermione Kline", number: "443-89-12" },
-  //         { id: "id-3", name: "Eden Clements", number: "645-17-79" },
-  //         { id: "id-4", name: "Annie Copeland", number: "227-91-26" },
-  //       ];
-  // };
-
-  // const [contacts, setContacts] = useState(getContact);
-
-  // const addContact = (newContact) => {
-  //   setContacts((prevContacts) => {
-  //     return [...prevContacts, newContact];
-  //   });
-  // };
-  // const [filter, setFilter] = useState("");
-
-  // const deleteContact = (contactId) => {
-  //   setContacts((prevContacts) => {
-  //     return prevContacts.filter((contact) => contact.id !== contactId);
-  //   });
-  // };
-  // const visibleContacts = contacts.filter((contact) =>
-  //   contact.name.toLowerCase().includes(filter.toLowerCase())
-  // );
-  // useEffect(() => {
-  //   window.localStorage.setItem("saved-contacts", JSON.stringify(contacts));
-  // }, [contacts]);
-  const handleSearch = async (topic) => {
-    try {
-      setIsLoading(true);
-      const fetchedImages = await getImages(topic);
-      setIsLoading(false);
-      setImages(fetchedImages);
-    } catch (error) {
-      setIsError(true);
-    } finally {
-      setIsLoading(false);
+  useEffect(() => {
+    if (searchQuery.trim() === "") {
+      return;
     }
+    async function fetchImages() {
+      try {
+        setIsLoading(true);
+        setIsError(false);
+        const data = await getImages(searchQuery, page);
+        setImages(data);
+      } catch (errer) {
+        setIsError(true);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    fetchImages();
+  }, [page, searchQuery]);
+
+  const handleSearch = async (topic) => {
+    setSearchQuery(topic);
+    setPage(1);
   };
+  const handleLoadMore = async () => {};
+
   return (
     <div>
       <SearchBar onSearch={handleSearch} />
-      {images.length > 0 && <ImageGallery items={images} />}
+      {/* {images.length > 0 && <ImageGallery items={images} />} */}
+      <ImageGallery items={images} />
       {isLoading && <Loader />}
 
-      <LoadMoreBtn />
+      <LoadMoreBtn onClick={handleLoadMore} />
       {isError && <ErrorMessage />}
       <ImageModal />
 
