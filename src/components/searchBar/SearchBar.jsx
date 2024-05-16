@@ -1,25 +1,47 @@
-//import css from "./SearchBox.module.css";
+//import css from "./SearchBar.module.css";
 import toast, { Toaster } from "react-hot-toast";
-
+import { Formik, Form, Field } from "formik";
 const notify = () => toast("Необхідно ввести текст для пошуку зображень");
 
-export default function SearchBar({ onSubmit }) {
+export default function SearchBar({ onSearch }) {
   return (
-    <header>
-      <form>
-        <input
+    <Formik
+      initialValues={{ guery: "" }}
+      onSubmit={(values, actions) => {
+        onSearch(values.query);
+        actions.resetForm();
+      }}
+    >
+      <Form>
+        <Field
           type="text"
-          // autocomplete="off"
-          // autofocus
+          name="query"
+          autocomplete="off"
+          autofocus
           placeholder="Search images and photos"
         />
-        {/* {form.input.elements.value === 0 && ( */}
-        <button type="submit" onSubmit={onSubmit} onClick={notify}>
+        <button type="submit" onSubmit={onSearch} onClick={notify}>
           Search
         </button>
         <Toaster />
-        {/* )} */}
-      </form>
-    </header>
+      </Form>
+    </Formik>
+
+    // <header>
+    //   <form>
+    //     <input
+    //       type="text"
+    //       // autocomplete="off"
+    //       // autofocus
+    //       placeholder="Search images and photos"
+    //     />
+    //     {/* {form.input.elements.value === 0 && ( */}
+    //     <button type="submit" onSubmit={onSubmit} onClick={notify}>
+    //       Search
+    //     </button>
+    //     <Toaster />
+    //     {/* )} */}
+    //   </form>
+    // </header>
   );
 }
