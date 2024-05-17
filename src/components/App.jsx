@@ -19,7 +19,8 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState("");
   const [showBtn, setShowBtn] = useState(false);
   const [modalIsOpen, setIsOpen] = React.useState(false);
-
+  //const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
   let subtitle;
 
   useEffect(() => {
@@ -32,7 +33,7 @@ export default function App() {
         setIsError(false);
         const data = await getImages(searchQuery, page);
         setImages((prevState) => [...prevState, ...data]);
-        setShowBtn(total_pages && total_pages !== page);
+        setShowBtn(data.total_pages && data.total_pages !== page);
         console.log(data, page);
       } catch (error) {
         setIsError(true);
@@ -55,15 +56,21 @@ export default function App() {
   // Make sure to bind modal to your appElement (https://reactcommunity.org/react-modal/accessibility/)
   //Modal.setAppElement("#yourAppElement");
 
-  function openModal() {
+  function openModal(image) {
     setIsOpen(true);
+    setSelectedImage(image);
   }
-
+  // const openModal = (image) => {
+  //   setModalIsOpen(true);
+  //   setSelectedImage(image);
+  // };
   function afterOpenModal() {
     // references are now sync'd and can be accessed.
     subtitle.style.color = "#f00";
   }
-
+  // const closeModal = () => {
+  //   setModalIsOpen(false);
+  // };
   function closeModal() {
     setIsOpen(false);
   }
