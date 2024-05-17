@@ -76,10 +76,11 @@ export default function App() {
   //setShowBtn(total_pages && total_pages !== page);
   return (
     <div>
-      <SearchBar onSearch={handleSearch} />
+      <SearchBar images={images} onSearch={handleSearch} />
       <ImageGallery items={images} />
 
       {isLoading && <Loader />}
+
       {/* {showBtn && <LoadMoreBtn/>} */}
       {images.length > 0 && !isLoading && (
         <LoadMoreBtn onClick={handleLoadMore} />

@@ -4,7 +4,7 @@ import { Formik, Form, Field } from "formik";
 //import { element } from "prop-types";
 const notify = () => toast("Необхідно ввести текст для пошуку зображень");
 
-export default function SearchBar({ onSearch }) {
+export default function SearchBar({ onSearch, images }) {
   return (
     <Formik
       initialValues={{ guery: "" }}
@@ -30,7 +30,7 @@ export default function SearchBar({ onSearch }) {
         >
           Search
         </button>
-        <Toaster />
+        {images.length === 0 && <Toaster />}
       </Form>
     </Formik>
   );
