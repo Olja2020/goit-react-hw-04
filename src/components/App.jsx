@@ -3,25 +3,14 @@ import LoadMoreBtn from "./loadMoreBtn/LoadMoreBtn";
 import Loader from "./loader/Loader";
 import ImageGallery from "./imageGallery/ImageGallery";
 import SearchBar from "./searchBar/SearchBar";
-//import { ErrorMessage } from "formik";
 import ErrorMessage from "./errorMassage/ErrorMessage";
 import ImageModal from "./imageModal/ImageModal";
 import React from "react";
 //import ReactDOM from "react-dom";
-import Modal from "react-modal";
+//import Modal from "react-modal";
 
 import { getImages } from "../../src/Api";
-const customStyles = {
-  content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
-  },
-};
-//Modal.setAppElement("#yourAppElement");
+
 export default function App() {
   const [images, setImages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -29,21 +18,10 @@ export default function App() {
   const [page, setPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
   const [showBtn, setShowBtn] = useState(false);
-  let subtitle;
   const [modalIsOpen, setIsOpen] = React.useState(false);
 
-  function openModal() {
-    setIsOpen(true);
-  }
+  let subtitle;
 
-  function afterOpenModal() {
-    // references are now sync'd and can be accessed.
-    subtitle.style.color = "#f00";
-  }
-
-  function closeModal() {
-    setIsOpen(false);
-  }
   useEffect(() => {
     if (searchQuery === "") {
       return;
@@ -54,8 +32,7 @@ export default function App() {
         setIsError(false);
         const data = await getImages(searchQuery, page);
         setImages((prevState) => [...prevState, ...data]);
-
-        setShowBtn(total_pages && total_pages !== page);
+        setShowBtn(data.total_pages && data.total_pages !== page);
         console.log(data, page);
       } catch (error) {
         setIsError(true);
@@ -75,6 +52,21 @@ export default function App() {
     setPage(page + 1);
   };
 
+  // Make sure to bind modal to your appElement (https://reactcommunity.org/react-modal/accessibility/)
+  //Modal.setAppElement("#yourAppElement");
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function afterOpenModal() {
+    // references are now sync'd and can be accessed.
+    subtitle.style.color = "#f00";
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+  }
   return (
     <div>
       <SearchBar images={images} onSearch={handleSearch} />
@@ -84,27 +76,16 @@ export default function App() {
 
       {showBtn && !isLoading && <LoadMoreBtn onClick={handleLoadMore} />}
       {isError && <ErrorMessage />}
-      <ImageModal />
 
-      <button onClick={openModal}>Open Modal</button>
-      <Modal
-        isOpen={modalIsOpen}
-        onAfterOpen={afterOpenModal}
-        onRequestClose={closeModal}
-        style={customStyles}
-        contentLabel="Example Modal"
-      >
-        <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Hello</h2>
-        <button onClick={closeModal}>close</button>
-        <div>I am a modal</div>
-        <form>
-          <input />
-          <button>tab navigation</button>
-          <button>stays</button>
-          <button>inside</button>
-          <button>the modal</button>
-        </form>
-      </Modal>
+      {modalIsOpen && (
+        <ImageModal
+          onOpen={openModal}
+          onClose={closeModal}
+          afterOpenModal={afterOpenModal}
+          isOpen={modalIsOpen}
+        />
+      )}
     </div>
   );
 }
+//ReactDOM.render(<App />, appElement);

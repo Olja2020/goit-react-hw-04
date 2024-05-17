@@ -1,4 +1,5 @@
 import ImageCard from "../imageCard/ImageCard";
+import ImageModal from "../imageModal/ImageModal";
 import css from "./ImageGallery.module.css";
 
 export default function ImageGallery({ items }) {
@@ -7,6 +8,7 @@ export default function ImageGallery({ items }) {
       {items.map((item) => (
         <li className={css.item} key={item.id}>
           <ImageCard data={item} />
+          <ImageModal data={item} />
         </li>
       ))}
     </ul>

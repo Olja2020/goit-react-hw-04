@@ -1,57 +1,53 @@
 import css from "./ImageModal.module.css";
-//import Modal from "react-modal";
-//import React from "react";
-//import ReactDOM from "react-dom";
-//Modal.setAppElement("#yourAppElement");
-// const custoconst [modalIsOpen, setIsOpen] = React.useState(false);
-// mStyles = {
-//   content: {
-//     top: "50%",
-//     left: "50%",
-//     right: "auto",
-//     bottom: "auto",
-//     marginRight: "-50%",
-//     transform: "translate(-50%, -50%)",
-//   },
-// };
-// let subtitle;
-
-// function openModal() {
-//   setIsOpen(true);
-// }
-
-// function afterOpenModal() {
-//   // references are now sync'd and can be accessed.
-//   subtitle.style.color = "#f00";
-// }
-
-// function closeModal() {
-//   setIsOpen(false);
-// }
-// //<button onClick={openModal}>Open Modal</button>
-// <Modal
-//   isOpen={modalIsOpen}
-//   onAfterOpen={afterOpenModal}
-//   onRequestClose={closeModal}
-//   style={customStyles}
-//   contentLabel="Example Modal"
-// >
-//   <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Hello</h2>
-//   <button onClick={closeModal}>close</button>
-//   <div>I am a modal</div>
-//   <form>
-//     <input />
-//     <button>tab navigation</button>
-//     <button>stays</button>
-//     <button>inside</button>
-//     <button>the modal</button>
-//   </form>
-// </Modal>;
-const ImageModal = () => {
+import Modal from "react-modal";
+import ReactModal from "react-modal";
+const customStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+  },
+};
+const ImageModal = ({
+  closeModal,
+  openModal,
+  afterOpenModal,
+  modalIsOpen,
+  data: {
+    alt_description,
+    urls: { regular },
+  },
+}) => {
   return (
     <div className={css.container}>
-      {/* <button onClick={openModal}>Open Modal</button> */}
+      <ReactModal>
+        <button onClick={openModal}>Open Modal</button>
+        <Modal
+          isOpen={modalIsOpen}
+          onAfterOpen={afterOpenModal}
+          onRequestClose={closeModal}
+          style={customStyles}
+          contentLabel="Example Modal"
+        >
+          {/* <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Hello</h2> */}
+          <button onClick={closeModal}>close</button>
+          <div>
+            <img src={regular} alt={alt_description} />
+          </div>
+          <form>
+            <input />
+            <button>tab navigation</button>
+            <button>stays</button>
+            <button>inside</button>
+            <button>the modal</button>
+          </form>
+        </Modal>
+      </ReactModal>
     </div>
   );
 };
+//ReactDOM.render(<App />, appElement);
 export default ImageModal;
