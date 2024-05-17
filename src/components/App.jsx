@@ -32,7 +32,7 @@ export default function App() {
         setIsError(false);
         const data = await getImages(searchQuery, page);
         setImages((prevState) => [...prevState, ...data]);
-        setShowBtn(data.total_pages && data.total_pages !== page);
+        setShowBtn(total_pages && total_pages !== page);
         console.log(data, page);
       } catch (error) {
         setIsError(true);
