@@ -1,8 +1,8 @@
 import css from "./ImageModal.module.css";
-import Modal from "react-modal";
+//import Modal from "react-modal";
 //import React from "react";
 //import ReactDOM from "react-dom";
-Modal.setAppElement("#yourAppElement");
+//Modal.setAppElement("#yourAppElement");
 // const custoconst [modalIsOpen, setIsOpen] = React.useState(false);
 // mStyles = {
 //   content: {
