@@ -19,8 +19,8 @@ export default function SearchBar({ onSearch, images }) {
           className={css.fieldForm}
           type="text"
           name="query"
-          //autocomplete="off"
-          //autofocus
+          autocomplete="off"
+          autofocus
           placeholder="Search images and photos"
         />
         <button
