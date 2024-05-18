@@ -10,6 +10,7 @@ export default function SearchBar({ onSearch, images }) {
     <Formik
       initialValues={{ guery: "" }}
       onSubmit={(values, actions) => {
+        if(!values.query) return notify();
         onSearch(values.query);
         actions.resetForm();
       }}
@@ -27,8 +28,7 @@ export default function SearchBar({ onSearch, images }) {
           className={css.buttonBar}
           type="submit"
           onSubmit={onSearch}
-          onClick={notify}
-        >
+                 >
           Search
         </button>
         {images.length === 0 && <Toaster />}
