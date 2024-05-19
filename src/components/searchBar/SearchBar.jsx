@@ -27,8 +27,7 @@ export default function SearchBar({ onSearch, images }) {
         <button
           className={css.buttonBar}
           type="submit"
-          onSubmit={onSearch}
-                 >
+                          >
           Search
         </button>
         {images.length === 0 && <Toaster />}
